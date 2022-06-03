@@ -30,6 +30,10 @@ func DelComponent[T any](entity Entity) {
 }
 
 func DelSpecificComponent(comp any, entity Entity) {
+	if d, ok := comp.(Disposable); ok {
+		d.Dispose()
+	}
+
 	delete(componentsEnts, comp)
 
 	componentsSlice, typeOf := getComponentsSpecificOutType(comp)
@@ -94,4 +98,8 @@ func getComponentsOfType(rType reflect.Type) ([]any, int) {
 	}
 
 	return slice, len(slice)
+}
+
+type Disposable interface {
+	Dispose()
 }
