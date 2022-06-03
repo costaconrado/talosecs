@@ -10,7 +10,7 @@ Talos is pretty simple, I'm trying to use minimum amount of abstractions and boi
 ### Setup guide
 To install it in your go project, run this in the terminal:
 
-```go get -u github.com/OlegDzhuraev/talosecs```
+```go get -u github.com/costaconrado/talosecs```
 
 ### Usage and Examples
 
@@ -19,7 +19,7 @@ You need to run a ECS from some place in your code. There an example.
 ```go
 package main
 
-import ecs "github.com/OlegDzhuraev/talosecs"
+import ecs "github.com/costaconrado/talosecs"
 
 func main() {
     mainLayer := ecs.NewLayer() // adding main game loop layer. You can have several layers, each one can group systems by same feature for example.
@@ -169,7 +169,7 @@ if signal, ok := talosecs.GetSignal[*BuildSignal](); ok {
 #### Tower defense game with Talos ECS
 ![TD Game](https://media.giphy.com/media/3T418nRvjGL4VdskD2/giphy.gif)
 
-**Link:** [EcsTowerDefense](https://github.com/OlegDzhuraev/EcsTowerDefense)
+**Link:** [EcsTowerDefense](https://github.com/costaconrado/EcsTowerDefense)
 
 ### License
 MIT License

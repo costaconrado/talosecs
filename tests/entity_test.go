@@ -1,8 +1,9 @@
 package talosEcsTests
 
 import (
-	"github.com/OlegDzhuraev/talosecs"
 	"testing"
+
+	"github.com/costaconrado/talosecs"
 )
 
 func TestEntityIsAlive(t *testing.T) {
