@@ -67,6 +67,16 @@ func GetComponent[T any](entity Entity) (T, bool) {
 	var defaultT T
 	return defaultT, false
 }
+func GetBrotherComponent[T any](comp any) (T, bool) {
+	entity := GetEntity(comp)
+	for _, c := range entsComponents[entity] {
+		if c2, ok := c.(T); ok {
+			return c2, true
+		}
+	}
+	var defaultT T
+	return defaultT, false
+}
 
 func HasComponent[T any](entity Entity) bool {
 	_, has := GetComponent[T](entity)
