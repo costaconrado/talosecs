@@ -13,6 +13,19 @@ func FilterWith[A any]() []A {
 	return result
 }
 
+func FilterWithC[A any](f func(param A) bool) []A {
+	slice, length := getComponentsGeneric[A]()
+	var result = make([]A, length)
+
+	for i, c := range slice { // I can't just return slice because it is of type []any, and there is no fast way of conversion to the []A
+		if compA, ok := c.(A); ok && f(compA) {
+			result[i] = compA
+		}
+	}
+
+	return result
+}
+
 func FilterWith2[A any, B any]() ([]A, []B) {
 	sliceA, maxLength := getComponentsGeneric[A]()
 	var resultA = make([]A, maxLength)
@@ -21,6 +34,26 @@ func FilterWith2[A any, B any]() ([]A, []B) {
 	i := 0
 	for _, c := range sliceA {
 		if compA, ok := c.(A); ok {
+			e := GetEntity(compA)
+			if compB, ok2 := GetComponent[B](e); ok2 {
+				resultA[i] = compA
+				resultB[i] = compB
+				i++
+			}
+		}
+	}
+
+	return resultA[:i], resultB[:i]
+}
+
+func FilterWith2C[A any, B any](f func(param A) bool) ([]A, []B) {
+	sliceA, maxLength := getComponentsGeneric[A]()
+	var resultA = make([]A, maxLength)
+	var resultB = make([]B, maxLength)
+
+	i := 0
+	for _, c := range sliceA {
+		if compA, ok := c.(A); ok && f(compA) {
 			e := GetEntity(compA)
 			if compB, ok2 := GetComponent[B](e); ok2 {
 				resultA[i] = compA
@@ -42,6 +75,30 @@ func FilterWith3[A any, B any, C any]() ([]A, []B, []C) {
 	i := 0
 	for _, c := range sliceA {
 		if compA, ok := c.(A); ok {
+			e := GetEntity(compA)
+			if compB, ok2 := GetComponent[B](e); ok2 {
+				if compC, ok3 := GetComponent[C](e); ok3 {
+					resultA[i] = compA
+					resultB[i] = compB
+					resultC[i] = compC
+					i++
+				}
+			}
+		}
+	}
+
+	return resultA[:i], resultB[:i], resultC[:i]
+}
+
+func FilterWith3C[A any, B any, C any](f func(param A) bool) ([]A, []B, []C) {
+	sliceA, maxLength := getComponentsGeneric[A]()
+	var resultA = make([]A, maxLength)
+	var resultB = make([]B, maxLength)
+	var resultC = make([]C, maxLength)
+
+	i := 0
+	for _, c := range sliceA {
+		if compA, ok := c.(A); ok && f(compA) {
 			e := GetEntity(compA)
 			if compB, ok2 := GetComponent[B](e); ok2 {
 				if compC, ok3 := GetComponent[C](e); ok3 {
