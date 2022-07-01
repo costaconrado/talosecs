@@ -18,7 +18,6 @@ func Init() {
 func Update() {
 	updateLayers()
 	clearOneFrames()
-	signals = nil
 }
 
 // Reset returns state of whole ECS to default - kills all entities, clears all layers with systems. Can be used for tests and some specific purposes.
